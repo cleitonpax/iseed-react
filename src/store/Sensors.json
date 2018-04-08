@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "key": "light",
+    "channelKey": null,
+    "title": "Light",
+    "icon": "fa fa-lightbulb",
+    "color": "blue",
+    "unity": "lux",
+    "history": [],
+    "value": null
+  },
+  {
+    "id": 3,
+    "key": "temp",
+    "channelKey": null,
+    "title": "Temperature",
+    "icon": "fa fa-thermometer-empty",
+    "color": "yellow",
+    "unity": "°",
+    "history": [],
+    "value": null
+  },
+  {
+    "id": 4,
+    "key": "humidity",
+    "channelKey": null,
+    "title": "Humidity",
+    "icon": "fa fa-tint",
+    "color": "teal",
+    "unity": "%",
+    "history": [],
+    "value": null
+  },
+  {
+    "id": 5,
+    "key": "gas",
+    "channelKey": null,
+    "title": "Gás",
+    "icon": "fa fa-fire",
+    "color": "red",
+    "unity": "",
+    "history": [],
+    "value": null
+  }
+]

@@ -1,75 +1,70 @@
 import React, { Component } from 'react';
+import './../App.css';
+import { Grid, Segment } from 'semantic-ui-react';
+import Head from './head';
+import Footer from './footer';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchPosts } from '../actions/postActions';
+import Sensor from './sensor';
 
-class History extends Component{
-  constructor(props){
-    super(props);  
-       
+/* eslint-disable react/no-multi-comp */
+
+class History extends Component {
+  constructor(props) {
+    super(props);
+    this.props.fetchPosts();
     this.state = {
-      options: {	
-        responsive: true,
-        barValueSpacing : 2,
-        scaleLineColor: "rgba(255,255,255,0)",
-        scaleShowVerticalLines: false,
-        scaleFontSize : 8,
-        scaleFontColor : "rgba(255,255,255,0.5)",
-        scaleShowGridLines : false,
-        scaleGridLineColor : "rgba(0,0,0,0)"
-      },
-      data: {
-        labels: [],
-        datasets: [
-            {
-              label: props.sensor.title,
-              fillColor: "rgba(255,255,255,1)",
-              strokeColor: "rgba(255,255,255,0)",
-              pointColor: "rgba(255,255,255,1)",
-              pointStrokeColor: "#fff",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: []
-            }
-        ]
-      },
-      isLoading: false,
-      error: null,
-      sensor: props.sensor
-    }   
-    setTimeout( () => this.getChart(), 100);     
+      loading: 0
+    }
   }  
-
-  getChart() {
-    const labels = [];
-    const series = [];
-    Object.entries( this.state.sensor.history ).map( i => {
-      labels.push( `${ i[1].label.substr( i[1].label.length - 4, i[1].label.length - 1 ) }0` );
-      series.push( parseInt( i[1].value, 10) );
-    }); 
-    const data = {
-      labels: labels,
-      datasets: [
-          {
-            label: this.state.sensor.title,
-            fillColor: "rgba(255,255,255,1)",
-            strokeColor: "rgba(255,255,255,0)",
-            pointColor: "rgba(255,255,255,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: series
-          }
-      ]
-    };
-    this.setState( { data } );
-    // console.log( 'history update', this.state.data );
+  componentWillMount() {    
+    setTimeout( () => this.increaseLoading(), 100 );
   }
-
-  render() {   
-    const BarChart = require("react-chartjs").Bar;
-    return (      
-      <BarChart data={this.state.data}  options={this.state.options} /> 
-    )
+  increaseLoading() {
+    let loading = this.state.loading;
+    let loadingTime = 200 ;
+    if ( loading > 98 ) {
+      loading = 0;
+      loadingTime = 3000;
+      this.props.fetchPosts();
+    } else {
+      loading += 1;
+    }
+    this.setState( { loading } );
+    setTimeout( () => this.increaseLoading(), loadingTime );
   }
+  render() { 
+    const sensores = this.props.history.map( sens => (      
+      <Grid.Column key={sens.id}>
+        <Segment color={sens.color} >
+          <Sensor sensor={sens} />
+        </Segment>
+      </Grid.Column>
+    ));      
+    return (  
+      <div>
+        <Head loading={this.state.loading} />
+        <Segment className='p-8 bg-gray'>
+        <Grid padded>
+          <Grid.Row columns={4}>
+            {sensores}         
+          </Grid.Row>
+        </Grid>
+        </Segment>
+        <Footer/>
+      </div>
+    );
+  }
+};
 
+History.propTypes = {
+  fetchPosts: PropTypes.func.isRequired,
+  history: PropTypes.array.isRequired
 }
 
-export default History;
+const mapStateToProps = state => ({
+  history: state.posts.history
+})
+
+export default connect( mapStateToProps, {fetchPosts})(History);
