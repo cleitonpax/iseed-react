@@ -8,6 +8,8 @@
     "react-chartjs": "^1.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "redux-thunk": "^2.2.0",
+    "redux": "^2.2.0",
     "semantic-ui-react": "^0.73.1"
   },
   "devDependencies": {

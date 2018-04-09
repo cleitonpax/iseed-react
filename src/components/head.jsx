@@ -35,6 +35,7 @@ class Head extends Component {
         <DoughnutChart width="70" height="70" data={data}  options={this.state.options} />
         <div className="percent">{ this.props.loading } <small>%</small></div>
         <h1 className="title">iSense Hub</h1>
+        <p className="update"><i className="fa fa-redo fa-sm"></i>&nbsp; Last Update {this.props.lastUpdate}</p>
       </Segment>
     )
   }

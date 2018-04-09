@@ -63,7 +63,6 @@ const getSensorHistory = (data) => {
   let sensors = JSON.parse(JSON.stringify( initialState.sensors ));
   sensors.map( (item, key) => { 
     item = getFieldKey(item, data.channel);
-    console.log(item);
     const { value, history } = getFieldValue(item, data.feeds);
     item.history = groupHistory( history, item.key );
     const { lastValue, unity } = getLastValue(item, value, data.feeds);

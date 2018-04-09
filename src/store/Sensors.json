@@ -37,7 +37,7 @@
     "key": "gas",
     "channelKey": null,
     "title": "Gás",
-    "icon": "fa fa-fire",
+    "icon": "fa fa-spinner",
     "color": "red",
     "unity": "",
     "history": [],
