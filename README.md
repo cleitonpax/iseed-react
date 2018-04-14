@@ -4,7 +4,7 @@
 
 This is a dashboard to display data from ThingSpeak API and Arduino using ReactJs/Redux and Semantic-ui.
 
-![alt text](./../../tree/master/src/assets/screen.png)
+![alt text](https://raw.githubusercontent.com/cleitonpax/iseed-react/master/src/assets/images/screen.png)
 
 ## How to use
 
